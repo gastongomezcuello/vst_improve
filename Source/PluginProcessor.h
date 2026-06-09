@@ -8,7 +8,21 @@ public:
     VST_IMPROVEAudioProcessor();
     ~VST_IMPROVEAudioProcessor() override;
 
+    int elapsedSeconds = 0;
+    int breakSeconds = 0;
+
+    bool running = false;
+    bool paused = false; 
+    
+    bool warned45 = false;
+    bool warned90 = false;
+    bool warned120 = false;
+
+    juce::int64 startTimestamp = 0;
+    juce::int64 breakTimestamp = 0;
+
     void prepareToPlay(double sampleRate, int samplesPerBlock) override;
+
     void releaseResources() override;
 
     void processBlock(juce::AudioBuffer<float> &, juce::MidiBuffer &) override;
