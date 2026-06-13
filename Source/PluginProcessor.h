@@ -13,13 +13,16 @@ public:
 
     bool running = false;
     bool paused = false; 
-    
+
     bool warned45 = false;
     bool warned90 = false;
     bool warned120 = false;
+    
+    bool shouldShowWorkWarning = false;
 
     juce::int64 startTimestamp = 0;
     juce::int64 breakTimestamp = 0;
+    juce::AudioParameterFloat* focusParameter = nullptr;
 
     void prepareToPlay(double sampleRate, int samplesPerBlock) override;
 

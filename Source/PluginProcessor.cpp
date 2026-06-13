@@ -13,6 +13,15 @@ VST_IMPROVEAudioProcessor::VST_IMPROVEAudioProcessor()
                 juce::AudioChannelSet::stereo(),
                 true))
 {
+    focusParameter =
+        new juce::AudioParameterFloat(
+            "focus",
+            "Focus",
+            0.0f,
+            100.0f,
+            50.0f);
+
+    addParameter(focusParameter);
 }
 
 VST_IMPROVEAudioProcessor::~VST_IMPROVEAudioProcessor()
@@ -48,9 +57,41 @@ void VST_IMPROVEAudioProcessor::releaseResources()
 }
 
 void VST_IMPROVEAudioProcessor::processBlock(
-    juce::AudioBuffer<float> &,
-    juce::MidiBuffer &)
+    juce::AudioBuffer<float>&,
+    juce::MidiBuffer&)
 {
+    if (running)
+    {
+        elapsedSeconds =
+            static_cast<int>(
+                (juce::Time::currentTimeMillis()
+                - startTimestamp)
+                / 1000);
+    }
+
+    if (paused)
+    {
+        breakSeconds =
+            static_cast<int>(
+                (juce::Time::currentTimeMillis()
+                - breakTimestamp)
+                / 1000);
+    }
+
+    if (elapsedSeconds >= 45
+        && !warned45)
+    {
+        warned45 = true;
+
+        juce::MessageManager::callAsync(
+            []
+            {
+                juce::AlertWindow::showMessageBoxAsync(
+                    juce::AlertWindow::WarningIcon,
+                    "VST Improve",
+                    "You've been working too long.\nTake a short break.");
+            });
+    }
 }
 
 bool VST_IMPROVEAudioProcessor::hasEditor() const

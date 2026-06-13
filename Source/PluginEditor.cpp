@@ -155,34 +155,7 @@ void VST_IMPROVEAudioProcessorEditor::resized()
 
 void VST_IMPROVEAudioProcessorEditor::timerCallback()
 {
-    if (audioProcessor.running)
-    {
-        audioProcessor.elapsedSeconds =
-            static_cast<int>(
-                (juce::Time::currentTimeMillis()
-                - audioProcessor.startTimestamp)
-                / 1000);
-    }
-
-    if (audioProcessor.paused)
-    {
-        audioProcessor.breakSeconds =
-            static_cast<int>(
-                (juce::Time::currentTimeMillis()
-                - audioProcessor.breakTimestamp)
-                / 1000);
-    }
-
-    if (audioProcessor.elapsedSeconds >= 45
-        && !audioProcessor.warned45)
-    {
-        audioProcessor.warned45 = true;
-
-        juce::AlertWindow::showMessageBoxAsync(
-            juce::AlertWindow::WarningIcon,
-            "VST Improve",
-            "You've been working for 45 seconds.\nConsider taking a short break.");
-    }
+    
 
     updateTimerLabel();
     updateBreakLabel();
