@@ -1,0 +1,28 @@
+# CMake build output and fetched dependencies
+/build/
+/cmake-build-*/
+/JUCE/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+
+# IDE and operating system files
+.vs/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Generated project files and binaries
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.exe
+*.dll
+*.lib
+*.pdb
+*.vst3/
+*.component/
+*.aaxplugin/
